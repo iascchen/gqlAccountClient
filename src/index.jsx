@@ -14,8 +14,6 @@ import {ACCOUNT_CENTER} from './utils/secrets'
 import {UserProvider} from './hook/UserProvider'
 import {getTokens} from './utils/manage-tokens'
 
-import * as serviceWorker from './serviceWorker'
-
 const customFetch = (uri, options) => {
     const tokens = getTokens()
     if (tokens && tokens.token) {
@@ -42,8 +40,3 @@ ReactDOM.render(
     </React.StrictMode>,
     document.getElementById('root')
 )
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister()
