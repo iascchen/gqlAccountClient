@@ -6,6 +6,7 @@ import {useMutation} from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
 import {layout, tailLayout} from '../../components/constant'
+import {INVITE_TOKEN_TTL} from '../../utils/secrets'
 
 const SIGN_UP = gql`
     mutation createUser($user: CreateUserInput!){
@@ -14,26 +15,55 @@ const SIGN_UP = gql`
         }
     }`
 
-const SignUpPWWidget = () => {
-    const [formData] = Form.useForm()
+const INVITE_TOKEN = gql`
+    mutation inviteToken($mobile: String!){
+        inviteToken(mobile: $mobile) {
+            _id
+        }
+    }`
 
+const SignUpPWWidget = () => {
     const [sLoading, setLoading] = useState(false)
-    const [signUp] = useMutation(SIGN_UP)
+
+    const [formData] = Form.useForm()
     const history = useHistory()
 
-    const handleSubmit = async (values) => {
-        setLoading(true)
-        const ret = await signUp({ variables: { user: values } })
-        console.log(ret)
+    const [signUp] = useMutation(SIGN_UP)
+    const [inviteToken] = useMutation(INVITE_TOKEN)
 
-        if (ret.data.createUser && ret.data.createUser._id) {
-            setLoading(false)
-            message.info('注册成功！')
-            history.push('/')
-        } else {
-            setLoading(false)
-            message.error('注册失败！')
+    const handleSubmit = async (values) => {
+        try {
+            setLoading(true)
+            const ret = await signUp({ variables: { user: values } })
+
+            if (ret.data.createUser && ret.data.createUser._id) {
+                setLoading(false)
+                message.info('注册成功！')
+                history.push('/')
+                return
+            } else {
+                console.log(ret)
+            }
+        } catch (err) {
+            console.log(err)
         }
+        setLoading(false)
+        message.error('注册失败！')
+    }
+
+    const handleSendToken = async () => {
+        try {
+            const mobile = formData.getFieldValue('mobile')
+            const ret = await inviteToken({ variables: { mobile } })
+
+            if (ret.data.inviteToken && ret.data.inviteToken._id) {
+                message.info(`Token 发送成功！${INVITE_TOKEN_TTL} 分钟内有效`)
+                return
+            }
+        } catch (err) {
+            console.log(err)
+        }
+        message.error('Token 发送失败！请重新发送')
     }
 
     return (
@@ -44,7 +74,7 @@ const SignUpPWWidget = () => {
                         <Form.Item name='mobile' label='Mobile' required>
                             <Input/>
                         </Form.Item>
-                        <Form.Item name='passwordResetToken' label='Token' required>
+                        <Form.Item name='inviteToken' label='Token' required>
                             <Input/>
                         </Form.Item>
                         <Form.Item name='password' label='Password' required>
@@ -53,7 +83,7 @@ const SignUpPWWidget = () => {
                         {sLoading
                             ? <Spin/>
                             : <Form.Item {...tailLayout}>
-                                <Button style={{ width: '30%', margin: '0 10%' }}> 发送 Token </Button>
+                                <Button style={{ width: '30%', margin: '0 10%' }} onClick={handleSendToken}> 发送 Token </Button>
                                 <Button type='primary' htmlType='submit' style={{ width: '30%', margin: '0 10%' }}>
                                     <SaveOutlined/> 注册 </Button>
                             </Form.Item>

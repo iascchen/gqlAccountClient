@@ -53,17 +53,18 @@ const MobileLoginWidget = ({ onForgot, onSignUp, onRememberMe, rememberMe, userI
                 const _user = JSON.parse(ret.user)
                 rememberMe ? setCookie(ZDN_COOKIE_USER, _user) : removeCookie(ZDN_COOKIE_USER)
                 setAccessToken(ret)
+                message.error('登录成功！')
                 history.push('/')
+                return
             } else {
-                setLoading(false)
                 setAccessToken()
                 removeCookie(ZDN_COOKIE_USER)
-                message.error('登录失败！')
             }
         } catch (err) {
             console.log(err)
-            message.error('登录失败！')
         }
+        setLoading(false)
+        message.error('登录失败！')
     }
 
     return (

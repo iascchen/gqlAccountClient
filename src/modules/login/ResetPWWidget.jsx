@@ -6,35 +6,63 @@ import {useMutation} from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
 import {layout, tailLayout} from '../../components/constant'
+import {INVITE_TOKEN_TTL} from '../../utils/secrets'
 
-// TODO 应该实现为生成密码修改 Token
 const FORGOT_PASSWORD = gql`
-    mutation updateUser($_id: String!, $user: UpdateUserInput!){
-        updateUser(_id: $_id, user: $user) {
+    mutation resetPassword($user: ResetPasswordInput!){
+        resetPassword(user: $user) {
+            _id
+        }
+    }`
+
+const RESET_TOKEN = gql`
+    mutation passwordResetToken($mobile: String!){
+        passwordResetToken(mobile: $mobile) {
             _id
         }
     }`
 
 const ResetPWWidget = () => {
-    const [formData] = Form.useForm()
-
     const [sLoading, setLoading] = useState(false)
-    const [forgot] = useMutation(FORGOT_PASSWORD)
+
+    const [formData] = Form.useForm()
     const history = useHistory()
 
-    const handleSubmit = async (values) => {
-        setLoading(true)
-        const ret = await forgot({ variables: { user: values } })
-        console.log(ret)
+    const [forgot] = useMutation(FORGOT_PASSWORD)
+    const [resetToken] = useMutation(RESET_TOKEN)
 
-        if (ret.data.updateUser && ret.data.updateUser._id) {
-            setLoading(false)
-            message.info('密码修改成功！')
-            history.push('/')
-        } else {
-            setLoading(false)
-            message.error('密码修改失败！')
+    const handleSubmit = async (values) => {
+        try {
+            setLoading(true)
+            const ret = await forgot({ variables: { user: values } })
+            if (ret.data.resetPassword && ret.data.resetPassword._id) {
+                setLoading(false)
+                message.info('密码修改成功！')
+                history.push('/')
+                return
+            } else {
+                console.log(ret)
+            }
+        } catch (err) {
+            console.log(err)
         }
+        setLoading(false)
+        message.error('密码修改失败！')
+    }
+
+    const handleSendToken = async () => {
+        try {
+            const mobile = formData.getFieldValue('mobile')
+            const ret = await resetToken({ variables: { mobile } })
+
+            if (ret.data.passwordResetToken && ret.data.passwordResetToken._id) {
+                message.info(`Token 发送成功！${INVITE_TOKEN_TTL} 分钟内有效`)
+                return
+            }
+        } catch (err) {
+            console.log(err)
+        }
+        message.error('Token 发送失败！请重新发送')
     }
 
     return (
@@ -49,12 +77,13 @@ const ResetPWWidget = () => {
                             <Input/>
                         </Form.Item>
                         <Form.Item name='password' label='New Password' required>
-                            <Input.Password />
+                            <Input.Password/>
                         </Form.Item>
                         {sLoading
                             ? <Spin/>
                             : <Form.Item {...tailLayout}>
-                                <Button style={{ width: '30%', margin: '0 10%' }}> 发送 Token </Button>
+                                <Button style={{ width: '30%', margin: '0 10%' }} onClick={handleSendToken}> 发送
+                                    Token </Button>
                                 <Button type='primary' htmlType='submit' style={{ width: '30%', margin: '0 10%' }}>
                                     <SaveOutlined/> 更新 </Button>
                             </Form.Item>

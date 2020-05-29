@@ -10,7 +10,7 @@ import './index.css'
 import 'antd/dist/antd.css'
 
 import App from './App'
-import {ACCOUNT_CENTER} from './utils/secrets'
+import {ACCOUNT_CENTER, HEADER_FOR_AUTH} from './utils/secrets'
 import {UserProvider} from './hook/UserProvider'
 import {getTokens} from './utils/manage-tokens'
 
@@ -18,7 +18,7 @@ const customFetch = (uri, options) => {
     const tokens = getTokens()
     if (tokens && tokens.token) {
         // options.headers.Authorization = `Bearer ${tokens.accessToken}`
-        options.headers.token = tokens.token
+        options.headers[HEADER_FOR_AUTH] = tokens.token
     }
     return fetch(uri, options)
 }
