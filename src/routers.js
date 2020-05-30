@@ -8,11 +8,11 @@ import ResetPWWidget from './modules/login/ResetPWWidget'
 const routes = [
     { path: '/', exact: true, component: Home },
 
-    { path: '/login', exact: true, component: LoginWidget },
-    { path: '/logout', exact: true, component: LogoutWidget },
+    { path: '/login', component: LoginWidget },
+    { path: '/logout', component: LogoutWidget },
 
-    { path: '/signup', exact: true, component: SignUpWidget },
-    { path: '/resetpw', exact: true, component: ResetPWWidget },
+    { path: '/signup', component: SignUpWidget },
+    { path: '/resetpw', component: ResetPWWidget },
 
     { path: '*', component: Home }
 ]
