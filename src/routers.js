@@ -1,18 +1,17 @@
 import Home from './components/common/Home'
 
-import LoginWidget from './modules/login/LoginWidget'
-import LogoutWidget from './modules/login/LogoutWidget'
-import SignUpWidget from './modules/login/SignUpWidget'
-import ResetPWWidget from './modules/login/ResetPWWidget'
+import Login from './modules/login/Login'
+import Logout from './modules/login/Logout'
+import SignUpPW from './modules/login/SignUpPW'
+import ResetPW from './modules/login/ResetPW'
 
 const routes = [
     { path: '/', exact: true, component: Home },
 
-    { path: '/login', component: LoginWidget },
-    { path: '/logout', component: LogoutWidget },
-
-    { path: '/signup', component: SignUpWidget },
-    { path: '/resetpw', component: ResetPWWidget },
+    { path: '/login', component: Login },
+    { path: '/logout', component: Logout },
+    { path: '/signup', component: SignUpPW },
+    { path: '/resetpw', component: ResetPW },
 
     { path: '*', component: Home }
 ]

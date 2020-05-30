@@ -3,8 +3,8 @@ import {useCookies} from 'react-cookie'
 import {useHistory} from 'react-router-dom'
 import {Card} from 'antd'
 
-import {ZDN_COOKIE_USER} from './utils/manage-tokens'
-import MobileLoginWidget from './components/MobileLoginWidget'
+import {ZDN_COOKIE_USER} from '../utils/manage-tokens'
+import MobileLoginWidget from './MobileLoginWidget'
 
 const LoginWidget = () => {
     const [sRememberMe, setRememberMe] = useState(false)

@@ -6,7 +6,7 @@ import {useCookies} from 'react-cookie'
 import {ZDN_COOKIE_USER} from './utils/manage-tokens'
 import {useUser} from './hook/UserProvider'
 
-const LogoutWidget = () => {
+const Logout = () => {
     const { setAccessToken } = useUser()
     const history = useHistory()
     const [cookies, setCookie, removeCookie] = useCookies([ZDN_COOKIE_USER])
@@ -24,4 +24,4 @@ const LogoutWidget = () => {
     return (<></>)
 }
 
-export default LogoutWidget
+export default Logout

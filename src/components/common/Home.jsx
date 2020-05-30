@@ -4,19 +4,13 @@ import {Col, Row} from 'antd'
 import reactLogo from '../../react_logo.svg'
 import gqlLogo from '../../graphql_logo.svg'
 
-import {useUser} from '../../modules/login/hook/UserProvider'
-import LoginWidget from '../../modules/login/LoginWidget'
-import UserInfoWidget from '../../modules/login/components/UserInfoWidget'
+import Login from '../../modules/login/Login'
 
 const Home = () => {
-    const { user, accessToken } = useUser()
-
     return (
         <Row className='centerContainer' style={{ width: '100%' }}>
-            <Col span={16}>
-                {accessToken
-                    ? <UserInfoWidget user={user}/>
-                    : <LoginWidget/>}
+            <Col span={24}>
+                <Login />
             </Col>
             <Col span={16} offset={4}>
                 <Row>

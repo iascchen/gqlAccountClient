@@ -1,12 +1,12 @@
 import React, {useState} from 'react'
 import {useHistory} from 'react-router-dom'
-import {Button, Card, Col, Form, Input, message, Row, Spin} from 'antd'
+import {Button, Card, Form, Input, message, Spin} from 'antd'
 import {SaveOutlined} from '@ant-design/icons'
 import {useMutation} from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
-import {layout, tailLayout} from '../../components/constant'
-import {INVITE_TOKEN_TTL} from '../../utils/secrets'
+import {layout, tailLayout} from '../../../components/constant'
+import {INVITE_TOKEN_TTL} from '../../../utils/secrets'
 
 const SIGN_UP = gql`
     mutation createUser($user: CreateUserInput!){
@@ -67,32 +67,28 @@ const SignUpPWWidget = () => {
     }
 
     return (
-        <Row className='centerContainer' style={{ width: '100%' }}>
-            <Col span={16}>
-                <Card title='注册'>
-                    <Form {...layout} form={formData} onFinish={handleSubmit}>
-                        <Form.Item name='mobile' label='Mobile' required>
-                            <Input/>
-                        </Form.Item>
-                        <Form.Item name='inviteToken' label='Token' required>
-                            <Input/>
-                        </Form.Item>
-                        <Form.Item name='password' label='Password' required>
-                            <Input.Password/>
-                        </Form.Item>
-                        {sLoading
-                            ? <Spin/>
-                            : <Form.Item {...tailLayout}>
-                                <Button style={{ width: '30%', margin: '0 10%' }} onClick={handleSendToken}> 发送
+        <Card title='注册'>
+            <Form {...layout} form={formData} onFinish={handleSubmit}>
+                <Form.Item name='mobile' label='Mobile' required>
+                    <Input/>
+                </Form.Item>
+                <Form.Item name='inviteToken' label='Token' required>
+                    <Input/>
+                </Form.Item>
+                <Form.Item name='password' label='Password' required>
+                    <Input.Password/>
+                </Form.Item>
+                {sLoading
+                    ? <Spin/>
+                    : <Form.Item {...tailLayout}>
+                        <Button style={{ width: '30%', margin: '0 10%' }} onClick={handleSendToken}> 发送
                                     Token </Button>
-                                <Button type='primary' htmlType='submit' style={{ width: '30%', margin: '0 10%' }}>
-                                    <SaveOutlined/> 注册 </Button>
-                            </Form.Item>
-                        }
-                    </Form>
-                </Card>
-            </Col>
-        </Row>
+                        <Button type='primary' htmlType='submit' style={{ width: '30%', margin: '0 10%' }}>
+                            <SaveOutlined/> 注册 </Button>
+                    </Form.Item>
+                }
+            </Form>
+        </Card>
     )
 }
 
