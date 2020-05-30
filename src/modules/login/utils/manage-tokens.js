@@ -1,4 +1,5 @@
-import {ZDN_TOKEN_KEY} from '../constant'
+export const ZDN_COOKIE_USER = 'zdn-user'
+export const ZDN_TOKEN_KEY = 'zdnTokens'
 
 // module for saving tokens to local storage
 // tokens = { token: "abc", user: "{}" }

@@ -6,9 +6,9 @@ import {KeyOutlined, UserAddOutlined, UserOutlined} from '@ant-design/icons'
 import gql from 'graphql-tag'
 import {useQuery} from '@apollo/react-hooks'
 
-import {ZDN_COOKIE_USER} from '../../constant'
-import {layout, tailLayout} from '../../components/constant'
-import {useUser} from '../../hook/UserProvider'
+import {layout, tailLayout} from '../../../components/constant'
+import {ZDN_COOKIE_USER} from '../utils/manage-tokens'
+import {useUser} from '../hook/UserProvider'
 
 const LOGIN_MOBILE = gql`
     query loginByMobile($mobile: String!, $password: String!){
@@ -53,7 +53,7 @@ const MobileLoginWidget = ({ onForgot, onSignUp, onRememberMe, rememberMe, userI
                 const _user = JSON.parse(ret.user)
                 rememberMe ? setCookie(ZDN_COOKIE_USER, _user) : removeCookie(ZDN_COOKIE_USER)
                 setAccessToken(ret)
-                message.error('登录成功！')
+                message.info('登录成功！')
                 history.push('/')
                 return
             } else {

@@ -1,14 +1,12 @@
 import React from 'react'
-import {useUser} from '../../hook/UserProvider'
 import {Col, Row} from 'antd'
+import UserHeader from '../../modules/login/components/UserHeader'
 
-const HeaderContainer = () => {
-    const { user, accessToken } = useUser()
+const HeaderContainer = ({ title }) => {
     return (
         <Row>
-            <Col span={20}><h2 style={{ margin: '0 8px' }}> gqlAccount Center </h2></Col>
-            <Col span={2}>{accessToken && <span> [ {user && user.mobile} ] </span>}</Col>
-            <Col span={2}>{accessToken && <a href={'/logout'}> Logout </a>}</Col>
+            <Col span={20}><h2 style={{ margin: '0 8px' }}> {title} </h2></Col>
+            <Col span={4}><UserHeader/></Col>
         </Row>
     )
 }

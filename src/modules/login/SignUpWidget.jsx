@@ -57,7 +57,7 @@ const SignUpPWWidget = () => {
             const ret = await inviteToken({ variables: { mobile } })
 
             if (ret.data.inviteToken && ret.data.inviteToken._id) {
-                message.info(`Token 发送成功！${INVITE_TOKEN_TTL} 分钟内有效`)
+                message.info(`Token 发送成功！${INVITE_TOKEN_TTL} 秒内有效`)
                 return
             }
         } catch (err) {
@@ -78,12 +78,13 @@ const SignUpPWWidget = () => {
                             <Input/>
                         </Form.Item>
                         <Form.Item name='password' label='Password' required>
-                            <Input.Password />
+                            <Input.Password/>
                         </Form.Item>
                         {sLoading
                             ? <Spin/>
                             : <Form.Item {...tailLayout}>
-                                <Button style={{ width: '30%', margin: '0 10%' }} onClick={handleSendToken}> 发送 Token </Button>
+                                <Button style={{ width: '30%', margin: '0 10%' }} onClick={handleSendToken}> 发送
+                                    Token </Button>
                                 <Button type='primary' htmlType='submit' style={{ width: '30%', margin: '0 10%' }}>
                                     <SaveOutlined/> 注册 </Button>
                             </Form.Item>

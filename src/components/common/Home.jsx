@@ -4,9 +4,9 @@ import {Col, Row} from 'antd'
 import reactLogo from '../../react_logo.svg'
 import gqlLogo from '../../graphql_logo.svg'
 
-import {useUser} from '../../hook/UserProvider'
+import {useUser} from '../../modules/login/hook/UserProvider'
 import LoginWidget from '../../modules/login/LoginWidget'
-import UserInfoWidget from '../account/UserInfoWidget'
+import UserInfoWidget from '../../modules/login/components/UserInfoWidget'
 
 const Home = () => {
     const { user, accessToken } = useUser()

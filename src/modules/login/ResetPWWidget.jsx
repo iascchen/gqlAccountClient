@@ -56,7 +56,7 @@ const ResetPWWidget = () => {
             const ret = await resetToken({ variables: { mobile } })
 
             if (ret.data.passwordResetToken && ret.data.passwordResetToken._id) {
-                message.info(`Token 发送成功！${INVITE_TOKEN_TTL} 分钟内有效`)
+                message.info(`Token 发送成功！${INVITE_TOKEN_TTL} 秒内有效`)
                 return
             }
         } catch (err) {

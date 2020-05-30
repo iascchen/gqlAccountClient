@@ -1,5 +1,6 @@
 import React, {createContext, useContext, useEffect, useState} from 'react'
-import {getTokens, saveTokens, deleteTokens} from '../utils/manage-tokens'
+
+import {deleteTokens, getTokens, saveTokens} from '../utils/manage-tokens'
 
 const initialState = {
     accessToken: undefined,
@@ -12,7 +13,7 @@ export const UserProvider = ({ children }) => {
     const [user, setUser] = useState()
 
     useEffect(() => {
-        if(!accessToken){
+        if (!accessToken) {
             deleteTokens()
             return
         }

@@ -1,6 +1,6 @@
 import React from 'react'
-import { renderRoutes } from 'react-router-config'
-import { Alert } from 'antd'
+import {renderRoutes} from 'react-router-config'
+import {Alert} from 'antd'
 
 import routes from '../../routers'
 

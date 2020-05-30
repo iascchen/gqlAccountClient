@@ -3,8 +3,8 @@ import {useHistory} from 'react-router-dom'
 import {message} from 'antd'
 import {useCookies} from 'react-cookie'
 
-import {ZDN_COOKIE_USER} from '../../constant'
-import {useUser} from '../../hook/UserProvider'
+import {ZDN_COOKIE_USER} from './utils/manage-tokens'
+import {useUser} from './hook/UserProvider'
 
 const LogoutWidget = () => {
     const { setAccessToken } = useUser()
