@@ -9,8 +9,8 @@ import {layout, tailLayout} from '../../../components/constant'
 import {INVITE_TOKEN_TTL} from '../../../utils/secrets'
 
 const SIGN_UP = gql`
-    mutation createUser($user: CreateUserInput!){
-        createUser(user: $user) {
+    mutation signUp($user: CreateUserInput!){
+        signUp(user: $user) {
             _id
         }
     }`
@@ -36,7 +36,7 @@ const SignUpPWWidget = () => {
             setLoading(true)
             const ret = await signUp({ variables: { user: values } })
 
-            if (ret.data.createUser && ret.data.createUser._id) {
+            if (ret.data.signUp && ret.data.signUp._id) {
                 setLoading(false)
                 message.info('注册成功！')
                 history.push('/')

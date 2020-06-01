@@ -18,7 +18,7 @@ export const UserProvider = ({ children }) => {
             return
         }
         // console.log('in UserProvider', accessToken)
-        setUser(JSON.parse(accessToken.user))
+        setUser(accessToken.user)
         saveTokens(accessToken)
     }, [accessToken])
 

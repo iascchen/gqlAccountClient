@@ -4,16 +4,20 @@ import {useHistory} from 'react-router-dom'
 import {Button, Checkbox, Col, Form, Input, message, Row, Spin} from 'antd'
 import {KeyOutlined, UserAddOutlined, UserOutlined} from '@ant-design/icons'
 import gql from 'graphql-tag'
-import {useQuery} from '@apollo/react-hooks'
+import {useMutation} from '@apollo/react-hooks'
 
 import {layout, tailLayout} from '../../../components/constant'
 import {ZDN_COOKIE_USER} from '../utils/manage-tokens'
 import {useUser} from '../hook/UserProvider'
 
 const LOGIN_MOBILE = gql`
-    query loginByMobile($mobile: String!, $password: String!){
+    mutation loginByMobile($mobile: String!, $password: String!){
         loginByMobile(mobile: $mobile, password: $password) {
-            token, user
+            token, user {
+                _id, mobile, email, profile {
+                    name, picture, website, location, gender
+                }
+            }
         }
     }`
 
@@ -28,10 +32,7 @@ const MobileLoginWidget = ({ onForgot, onSignUp, onRememberMe, rememberMe, userI
 
     const history = useHistory()
 
-    const { refetch } = useQuery(LOGIN_MOBILE, {
-        variables: sData,
-        skip: !sData,
-    })
+    const [loginByMobile] = useMutation(LOGIN_MOBILE)
 
     useEffect(() => {
         if (!userInCookies || !formData) {
@@ -44,13 +45,13 @@ const MobileLoginWidget = ({ onForgot, onSignUp, onRememberMe, rememberMe, userI
         console.log('handleLogin', values)
         setDate(values)
         try {
-            const response = await refetch({ variables: values })
+            const response = await loginByMobile({ variables: values })
             const ret = response.data.loginByMobile
             console.log(ret)
 
             if (ret && ret.token) {
                 setLoading(false)
-                const _user = JSON.parse(ret.user)
+                const _user = ret.user
                 rememberMe ? setCookie(ZDN_COOKIE_USER, _user) : removeCookie(ZDN_COOKIE_USER)
                 setAccessToken(ret)
                 message.info('登录成功！')
