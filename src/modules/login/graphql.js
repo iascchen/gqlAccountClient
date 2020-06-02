@@ -43,3 +43,21 @@ export const INVITE_TOKEN = gql`
             _id, token
         }
     }`
+
+export const UPDATE_USER = gql`
+    mutation updateUser($id: String!, $user: UpdateUserInput!){
+        updateUser(id: $id, user: $user) {
+            _id, mobile, email, profile {
+                name, gender, picture, website, location
+            }
+        }
+    }`
+
+export const ME = gql`
+    query me{
+        me{
+            _id, mobile, email, profile {
+                name, gender, picture, website, location
+            }
+        }
+    }`
