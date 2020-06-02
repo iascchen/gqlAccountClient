@@ -3,23 +3,12 @@ import {useCookies} from 'react-cookie'
 import {useHistory} from 'react-router-dom'
 import {Button, Checkbox, Col, Form, Input, message, Row, Spin} from 'antd'
 import {KeyOutlined, UserAddOutlined, UserOutlined} from '@ant-design/icons'
-import gql from 'graphql-tag'
 import {useMutation} from '@apollo/react-hooks'
 
 import {layout, tailLayout} from '../../../components/constant'
 import {ZDN_COOKIE_USER} from '../utils/manage-tokens'
 import {useUser} from '../hook/UserProvider'
-
-const LOGIN_MOBILE = gql`
-    mutation loginByMobile($mobile: String!, $password: String!){
-        loginByMobile(mobile: $mobile, password: $password) {
-            token, user {
-                _id, mobile, email, profile {
-                    name, picture, website, location, gender
-                }
-            }
-        }
-    }`
+import {LOGIN_MOBILE} from '../graphql'
 
 const MobileLoginWidget = ({ onForgot, onSignUp, onRememberMe, rememberMe, userInCookies }) => {
     const [sData, setDate] = useState()

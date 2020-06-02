@@ -3,24 +3,11 @@ import {useHistory} from 'react-router-dom'
 import {Button, Card, Form, Input, message, Spin} from 'antd'
 import {SaveOutlined} from '@ant-design/icons'
 import {useMutation} from '@apollo/react-hooks'
-import gql from 'graphql-tag'
 
 import {layout, tailLayout} from '../../../components/constant'
 import {INVITE_TOKEN_TTL} from '../../../utils/secrets'
-
-const SIGN_UP = gql`
-    mutation signUp($user: CreateUserInput!){
-        signUp(user: $user) {
-            _id
-        }
-    }`
-
-const INVITE_TOKEN = gql`
-    mutation inviteToken($mobile: String!){
-        inviteToken(mobile: $mobile) {
-            _id
-        }
-    }`
+import {INVITE_TOKEN, SIGN_UP} from '../graphql'
+import TokenInput from './TokenInput'
 
 const SignUpPWWidget = () => {
     const [sLoading, setLoading] = useState(false)
@@ -57,13 +44,21 @@ const SignUpPWWidget = () => {
             const ret = await inviteToken({ variables: { mobile } })
 
             if (ret.data.inviteToken && ret.data.inviteToken._id) {
-                message.info(`Token 发送成功！${INVITE_TOKEN_TTL} 秒内有效`)
+                // display token is temporary for without integrated with SMS now
+                const token = ret.data.inviteToken.token
+                message.info(`Token 发送成功！${INVITE_TOKEN_TTL} 秒内有效。${token}`)
                 return
+            } else {
+                message.error('Token 发送失败！请重新发送。')
             }
         } catch (err) {
             console.log(err)
+            message.error(`Token 发送失败！请重新发送。${err}`)
         }
-        message.error('Token 发送失败！请重新发送')
+    }
+
+    const handleCancel = () => {
+        history.push('/')
     }
 
     return (
@@ -73,7 +68,7 @@ const SignUpPWWidget = () => {
                     <Input/>
                 </Form.Item>
                 <Form.Item name='inviteToken' label='Token' required>
-                    <Input/>
+                    <TokenInput onSend={handleSendToken} />
                 </Form.Item>
                 <Form.Item name='password' label='Password' required>
                     <Input.Password/>
@@ -81,8 +76,7 @@ const SignUpPWWidget = () => {
                 {sLoading
                     ? <Spin/>
                     : <Form.Item {...tailLayout}>
-                        <Button style={{ width: '30%', margin: '0 10%' }} onClick={handleSendToken}> 发送
-                                    Token </Button>
+                        <Button style={{ width: '30%', margin: '0 10%' }} onClick={handleCancel}> 取消 </Button>
                         <Button type='primary' htmlType='submit' style={{ width: '30%', margin: '0 10%' }}>
                             <SaveOutlined/> 注册 </Button>
                     </Form.Item>
