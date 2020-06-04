@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react'
+import {Link} from 'react-router-dom'
 import {Col, Row} from 'antd'
 
 import {useUser} from '../hook/UserProvider'
@@ -19,7 +20,7 @@ const UserHeader = () => {
     return (
         <Row>
             <Col span={12}>{accessToken && <span>[{sName}]</span>}</Col>
-            <Col span={12}>{accessToken && <a href={'/logout'}> 退出 </a>}</Col>
+            <Col span={12}>{accessToken && <Link to={'/logout'}> 退出 </Link>}</Col>
         </Row>
     )
 }
