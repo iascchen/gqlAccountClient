@@ -1,5 +1,5 @@
 import React from 'react'
-import {BrowserRouter as Router} from 'react-router-dom'
+import {HashRouter as Router} from 'react-router-dom'
 import {Layout} from 'antd'
 import {HttpLink} from 'apollo-link-http'
 import {ApolloClient} from 'apollo-client'
