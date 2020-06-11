@@ -16,7 +16,7 @@ RUN npm config get registry
 
 WORKDIR /opt/app
 COPY package.json /opt/app/package.json
-#C OPY yarn.lock /opt/app/yarn.lock
+#COPY yarn.lock /opt/app/yarn.lock
 RUN npm install
 
 COPY . /opt/app
