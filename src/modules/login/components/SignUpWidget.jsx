@@ -47,7 +47,7 @@ const SignUpPWWidget = () => {
                 // display token is temporary for without integrated with SMS now
                 const token = ret.data.inviteToken.token
                 message.info(`Token 发送成功！${INVITE_TOKEN_TTL} 秒内有效。${token}`)
-                return
+
             } else {
                 message.error('Token 发送失败！请重新发送。')
             }
@@ -68,7 +68,7 @@ const SignUpPWWidget = () => {
                     <Input/>
                 </Form.Item>
                 <Form.Item name='inviteToken' label='Token' required>
-                    <TokenInput onSend={handleSendToken} />
+                    <TokenInput onSend={handleSendToken}/>
                 </Form.Item>
                 <Form.Item name='password' label='Password' required>
                     <Input.Password/>

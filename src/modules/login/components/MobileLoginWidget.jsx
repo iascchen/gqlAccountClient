@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react'
+import PropTypes from 'prop-types'
 import {useCookies} from 'react-cookie'
 import {useHistory} from 'react-router-dom'
 import {Button, Checkbox, Col, Form, Input, message, Row, Spin} from 'antd'
@@ -90,6 +91,14 @@ const MobileLoginWidget = ({ onForgot, onSignUp, onRememberMe, rememberMe, userI
             }
         </Form>
     )
+}
+
+MobileLoginWidget.propTypes = {
+    onForgot: PropTypes.func,
+    onSignUp: PropTypes.func,
+    onRememberMe: PropTypes.func,
+    rememberMe: PropTypes.bool,
+    userInCookies: PropTypes.any
 }
 
 export default MobileLoginWidget

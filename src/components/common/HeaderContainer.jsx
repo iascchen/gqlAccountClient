@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {Col, Row} from 'antd'
 import UserHeader from '../../modules/login/components/UserHeader'
 
@@ -9,6 +10,10 @@ const HeaderContainer = ({ title }) => {
             <Col span={4}><UserHeader/></Col>
         </Row>
     )
+}
+
+HeaderContainer.propTypes = {
+    title: PropTypes.string
 }
 
 export default HeaderContainer

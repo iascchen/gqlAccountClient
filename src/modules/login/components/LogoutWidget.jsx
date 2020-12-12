@@ -22,7 +22,7 @@ const LogoutWidget = () => {
         }
 
         signOut().then(
-            (result)=>{
+            (result) => {
                 console.log('logout', result)
                 message.info('退出登录！')
                 setAccessToken()

@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react'
+import PropTypes from 'prop-types'
 import {Avatar, Button, Card, Col, Form, Input, message, Modal, Row} from 'antd'
 import {EditOutlined} from '@ant-design/icons'
 import {useMutation} from '@apollo/react-hooks'
@@ -113,6 +114,10 @@ const UserInfoWidget = ({ user }) => {
             </Modal>
         </Card>
     )
+}
+
+UserInfoWidget.propTypes = {
+    user: PropTypes.any
 }
 
 export default UserInfoWidget

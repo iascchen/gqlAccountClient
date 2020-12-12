@@ -46,7 +46,7 @@ const ResetPWWidget = () => {
                 // display token is temporary for without integrated with SMS now
                 const token = ret.data.passwordResetToken.passwordResetToken
                 message.info(`Token 发送成功！${INVITE_TOKEN_TTL} 秒内有效。${token}`)
-                return
+
             } else {
                 message.error('Token 发送失败！请重新发送。')
             }
@@ -67,10 +67,10 @@ const ResetPWWidget = () => {
                     <Input/>
                 </Form.Item>
                 <Form.Item name='passwordResetToken' label='Token' required>
-                    <TokenInput onSend={handleSendToken} />
+                    <TokenInput onSend={handleSendToken}/>
                 </Form.Item>
                 <Form.Item name='password' label='New Password' required>
-                    <Input.Password />
+                    <Input.Password/>
                 </Form.Item>
                 {sLoading
                     ? <Spin/>

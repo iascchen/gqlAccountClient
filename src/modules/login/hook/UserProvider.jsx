@@ -1,4 +1,5 @@
 import React, {createContext, useContext, useEffect, useState} from 'react'
+import PropTypes from 'prop-types'
 
 import {deleteTokens, getTokens, saveTokens} from '../utils/manage-tokens'
 
@@ -29,6 +30,10 @@ export const UserProvider = ({ children }) => {
             </>
         </UserContext.Provider>
     )
+}
+
+UserProvider.propTypes = {
+    children: PropTypes.any
 }
 
 export const useUser = () => useContext(UserContext)
