@@ -3,9 +3,10 @@ import PropTypes from 'prop-types'
 import {useCookies} from 'react-cookie'
 import {useHistory} from 'react-router-dom'
 import {Button, Checkbox, Col, Form, Input, message, Row, Spin} from 'antd'
-import {KeyOutlined, UserAddOutlined, UserOutlined} from '@ant-design/icons'
+import {UserOutlined} from '@ant-design/icons'
 import {useMutation} from '@apollo/react-hooks'
 
+import {LDAP_USER_RDN} from '../../../utils/secrets'
 import {layout, tailLayout} from '../../../components/constant'
 import {ZDN_COOKIE_USER} from '../utils/manage-tokens'
 import {useUser} from '../hook/UserProvider'
@@ -64,7 +65,7 @@ const LdapLoginWidget = ({ onForgot, onRememberMe, rememberMe, userInCookies }) 
 
     return (
         <Form {...layout} form={formData} onFinish={handleLogin}>
-            <Form.Item name='uid' label='RDN=uid' required>
+            <Form.Item name='uid' label={`RDN=${LDAP_USER_RDN}`} required>
                 <Input/>
             </Form.Item>
             <Form.Item name='password' label='Password' required>

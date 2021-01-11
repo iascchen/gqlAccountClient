@@ -10,3 +10,4 @@ if (!ACCOUNT_CENTER) {
 }
 
 export const LDAP_AUTH = process.env.REACT_APP_LDAP_AUTH || 'off'   // off | only | both
+export const LDAP_USER_RDN = process.env.REACT_APP_LDAP_USER_RDN || 'uid' // uid | username
