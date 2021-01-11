@@ -4,7 +4,18 @@ export const LOGIN_MOBILE = gql`
     mutation loginByMobile($mobile: String!, $password: String!){
         loginByMobile(mobile: $mobile, password: $password) {
             token, user {
-                _id, mobile, email, profile {
+                _id, openId, mobile, email, profile {
+                    name, picture, website, location, gender
+                }
+            }
+        }
+    }`
+
+export const LOGIN_LDAP = gql`
+    mutation loginByLdap($uid: String!, $password: String!){
+        loginByLdap(uid: $uid, password: $password) {
+            token, user {
+                _id, openId, mobile, email, profile {
                     name, picture, website, location, gender
                 }
             }

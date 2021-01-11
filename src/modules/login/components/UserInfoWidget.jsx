@@ -72,14 +72,15 @@ const UserInfoWidget = ({ user }) => {
                         <Avatar shape='square' size='large' src={user && user.profile && user.profile.picture}/>
                     </div>
                     {user && <ul>
-                        <li>Nick Name {sData?.name}</li>
+                        <li>OpenID : {user.openId}</li>
+                        <li>Nick Name : {sData?.name}</li>
 
-                        <li>Mobile {user.mobile}</li>
-                        <li>Email {sData?.email}</li>
+                        <li>Mobile : {user.mobile}</li>
+                        <li>Email : {sData?.email}</li>
 
-                        <li>Gender {sData?.gender}</li>
-                        <li>Web Site {sData?.website}</li>
-                        <li>Location {sData?.location}</li>
+                        <li>Gender : {sData?.gender}</li>
+                        <li>Web Site : {sData?.website}</li>
+                        <li>Location : {sData?.location}</li>
                     </ul>}
                 </Col>
                 <Col span={2}>

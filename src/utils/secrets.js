@@ -8,3 +8,5 @@ export const INVITE_TOKEN_TTL = process.env.REACT_APP_INVITE_TOKEN_TTL || 60
 if (!ACCOUNT_CENTER) {
     console.error('No Account Center uri. Set REACT_APP_ACCOUNT_CENTER environment variable.')
 }
+
+export const LDAP_AUTH = process.env.REACT_APP_LDAP_AUTH || 'off'   // off | only | both
