@@ -6,8 +6,11 @@ MAINTAINER IascCHEN
 # 更新Alpine的软件源为国内（清华大学）的站点 TUNA
 RUN echo "https://mirror.tuna.tsinghua.edu.cn/alpine/v3.13/main/" > /etc/apk/repositories
 
-RUN apk update && apk upgrade && \
-    apk add --no-cache nodejs npm
+RUN apk update \
+    && apk add --no-cache ca-certificates \
+    && update-ca-certificates \
+    && apk add --no-cache --virtual .build-deps python3 make gcc g++ \
+    && apk add --no-cache nodejs npm
 
 ARG NPM_REGISTRY="https://registry.npm.taobao.org"
 
@@ -22,3 +25,5 @@ RUN npm install
 COPY . /opt/app
 RUN npm run build
 RUN cp -r build/* /usr/share/nginx/html
+
+RUN apk del .build-deps
