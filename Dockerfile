@@ -9,8 +9,8 @@ RUN echo "https://mirror.tuna.tsinghua.edu.cn/alpine/v3.13/main/" > /etc/apk/rep
 RUN apk update \
     && apk add --no-cache ca-certificates \
     && update-ca-certificates \
-    && apk add --no-cache --virtual .build-deps python3 make gcc g++ \
-    && apk add --no-cache nodejs npm
+    && apk add --no-cache --virtual .build-deps python3 make gcc g++
+RUN apk add --no-cache nodejs npm
 
 ARG NPM_REGISTRY="https://registry.npm.taobao.org"
 
