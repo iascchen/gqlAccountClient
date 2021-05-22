@@ -1,4 +1,3 @@
-# FROM node
 FROM nginx:alpine
 
 MAINTAINER IascCHEN
@@ -7,7 +6,7 @@ MAINTAINER IascCHEN
 RUN echo "https://mirror.tuna.tsinghua.edu.cn/alpine/v3.13/main/" > /etc/apk/repositories
 
 RUN apk update \
-    apk add --no-cache nodejs npm
+    && apk add --no-cache nodejs npm
 
 ARG NPM_REGISTRY="https://registry.npm.taobao.org"
 
